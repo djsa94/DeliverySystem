@@ -35,9 +35,9 @@ namespace ProyectoProgramado3.Controllers
         // GET: Clientes/Details/5
         public ActionResult Details(string id)
         {
-            var PlacesDetails = _dbcontext.database.GetCollection<ClientModel>("Clients");
+            var ClientsDetails = _dbcontext.database.GetCollection<ClientModel>("Clients");
            // var cliente = new ObjectId(id);
-            var clientId = PlacesDetails.AsQueryable<ClientModel>().SingleOrDefault(x => x.idClient == id);
+            var clientId = ClientsDetails.AsQueryable<ClientModel>().SingleOrDefault(x => x.idClient == id);
             return View(clientId);
         }
 

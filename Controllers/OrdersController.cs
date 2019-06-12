@@ -12,12 +12,12 @@ using MongoDB.Bson.IO;
 
 namespace ProyectoProgramado3.Controllers
 {
-    public class PedidosController : Controller
+    public class OrdersController : Controller
     {
         private MongoCon _dbcontext;
         private IMongoCollection<OrderModel> orderCollection;
 
-        public PedidosController()
+        public OrdersController()
         {
             _dbcontext = new MongoCon();
         }

@@ -12,12 +12,12 @@ using MongoDB.Bson.IO;
 
 namespace ProyectoProgramado3.Controllers
 {
-    public class ProductoController : Controller
+    public class ProductsController : Controller
     {
         private MongoCon _dbcontext;
         private IMongoCollection<ProductModel> prodCollection;
 
-        public ProductoController()
+        public ProductsController()
         {
             _dbcontext = new MongoCon();
         }
@@ -33,9 +33,13 @@ namespace ProyectoProgramado3.Controllers
         }
 
         // GET: Producto/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            return View();
+            var ProductDetails = _dbcontext.database.GetCollection<ProductModel>("Products");
+            // var cliente = new ObjectId(id);
+            var productId = ProductDetails.AsQueryable<ProductModel>().SingleOrDefault(x => x.idProduct == id);
+            return View(productId);
+            
         }
 
         // GET: Producto/Create
@@ -55,19 +59,27 @@ namespace ProyectoProgramado3.Controllers
         }
 
         // GET: Producto/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            prodCollection = _dbcontext.database.GetCollection<ProductModel>("Products");
+            //var clienteId = new ObjectId(id);
+            var product = prodCollection.AsQueryable<ProductModel>().SingleOrDefault(x => x.idProduct == id);
+            return View(product);
         }
 
         // POST: Producto/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(string id, ProductModel collection)
         {
             try
             {
                 // TODO: Add update logic here
-
+                prodCollection = _dbcontext.database.GetCollection<ProductModel>("Products");
+                prodCollection.DeleteOne(Builders<ProductModel>.Filter.Eq("idProduct", id));
+                Create(collection);
+                var filter = Builders<ProductModel>.Filter.Eq("idProduct", id);
+                var update = Builders<ProductModel>.Update.Set("Name", collection.Name);//Se puede agregar mas haciendo un .Set("",) extra
+                var result = prodCollection.UpdateOne(filter, update);
                 return RedirectToAction("Index");
             }
             catch
@@ -77,18 +89,24 @@ namespace ProyectoProgramado3.Controllers
         }
 
         // GET: Producto/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
-            return View();
+            prodCollection = _dbcontext.database.GetCollection<ProductModel>("Products");
+            //var clienteId = new ObjectId(id);
+            var product = prodCollection.AsQueryable<ProductModel>().SingleOrDefault(x => x.idProduct == id);
+            return View(product);
+            
         }
 
         // POST: Producto/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string id, ProductModel collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                prodCollection = _dbcontext.database.GetCollection<ProductModel>("Products");
+                prodCollection.DeleteOne(Builders<ProductModel>.Filter.Eq("idProduct", id));
+
 
                 return RedirectToAction("Index");
             }

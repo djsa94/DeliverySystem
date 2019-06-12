@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace ProyectoProgramado3.Controllers
 {
-    public class Sitio_productoController : Controller
+    public class PlaceProductController : Controller
     {
         // GET: Sitio_producto
         public ActionResult Index()

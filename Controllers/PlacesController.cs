@@ -13,12 +13,12 @@ using MongoDB.Bson.IO;
 
 namespace ProyectoProgramado3.Controllers
 {
-    public class SitiosController : Controller
+    public class PlacesController : Controller
     {
         private MongoCon _dbcontext;
         private IMongoCollection<PlaceModel> placesCollection;
 
-        public SitiosController()
+        public PlacesController()
         {
             _dbcontext = new MongoCon();
         }
