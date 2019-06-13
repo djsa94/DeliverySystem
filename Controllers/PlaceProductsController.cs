@@ -1,4 +1,8 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using ProyectoProgramado3.App_Start;
+using ProyectoProgramado3.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,20 +10,35 @@ using System.Web.Mvc;
 
 namespace ProyectoProgramado3.Controllers
 {
-    public class PlaceProductController : Controller
+    public class PlaceProductsController : Controller
     {
+        private MongoCon _dbcontext;
+        private IMongoCollection<PlaceProductModel> ppCollection;
+
+        public PlaceProductsController()
+        {
+            _dbcontext = new MongoCon();
+        }
+
         // GET: Sitio_producto
         public ActionResult Index()
         {
-            return View();
+            ppCollection = _dbcontext.database.GetCollection<PlaceProductModel>("PlaceProducts");
+            var pps = ppCollection.AsQueryable<PlaceProductModel>().ToList<PlaceProductModel>();
+            List<PlaceProductModel> list = new List<PlaceProductModel>();
+            //list.Add(sitios);
+            return View(pps);
+            
         }
 
         // GET: Sitio_producto/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            return View();
+            var ppDetails = _dbcontext.database.GetCollection<PlaceProductModel>("PlaceProducts");
+            var cliente = new ObjectId(id);
+            var ppId = ppDetails.AsQueryable<PlaceProductModel>().SingleOrDefault(x => x.Id == cliente);
+            return View(ppId);
         }
-
         // GET: Sitio_producto/Create
         public ActionResult Create()
         {
@@ -28,12 +47,13 @@ namespace ProyectoProgramado3.Controllers
 
         // POST: Sitio_producto/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(PlaceProductModel collection)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                ppCollection = _dbcontext.database.GetCollection<PlaceProductModel>("PlaceProducts");
+                ppCollection.InsertOne(collection);
+                Console.WriteLine("Insert");
                 return RedirectToAction("Index");
             }
             catch

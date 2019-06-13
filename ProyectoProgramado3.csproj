@@ -177,7 +177,7 @@
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\PlacesController.cs" />
-    <Compile Include="Controllers\PlaceProductController.cs" />
+    <Compile Include="Controllers\PlaceProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -254,15 +254,19 @@
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Places\Create.cshtml" />
     <Content Include="Views\Places\Delete.cshtml" />
-    <Content Include="Views\Places\Details.cshtml" />
-    <Content Include="Views\Places\Edit.cshtml" />
     <Content Include="Views\Places\Index.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
+    <Content Include="Views\Places\Details.cshtml" />
+    <Content Include="Views\Places\Edit.cshtml" />
+    <Content Include="Views\PlaceProducts\Create.cshtml" />
+    <Content Include="Views\PlaceProducts\Delete.cshtml" />
+    <Content Include="Views\PlaceProducts\Details.cshtml" />
+    <Content Include="Views\PlaceProducts\Edit.cshtml" />
+    <Content Include="Views\PlaceProducts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Neo4jCon\" />
-    <Folder Include="Views\PlaceProduct\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
