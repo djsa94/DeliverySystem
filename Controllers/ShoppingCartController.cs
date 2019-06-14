@@ -18,7 +18,7 @@ namespace ProyectoProgramado3.Controllers
         {
             return View();
         }
-
+        
         // GET: Carrito_Compras/Details/5
         public ActionResult Details(int id)
         {

@@ -38,7 +38,7 @@ namespace ProyectoProgramado3.Models
         public string PlaceType { get; set; }
 
         [BsonElement("Picture")]
-        public double Picture { get; set; }
+        public string Picture { get; set; }
 
         [BsonElement("PhoneNumber")]
         public string PhoneNumber { get; set; }

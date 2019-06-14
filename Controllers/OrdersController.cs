@@ -9,6 +9,7 @@ using MongoDB.Bson;
 using System.Collections.Generic;
 using MongoDB.Driver;
 using MongoDB.Bson.IO;
+using Neo4j.Driver.V1;
 
 namespace ProyectoProgramado3.Controllers
 {
@@ -25,10 +26,21 @@ namespace ProyectoProgramado3.Controllers
         // GET: Pedidos
         public ActionResult Index()
         {
-            orderCollection = _dbcontext.database.GetCollection<OrderModel>("Order");
+            orderCollection = _dbcontext.database.GetCollection<OrderModel>("Orders");
             var orders = orderCollection.AsQueryable<OrderModel>().ToList<OrderModel>();
             List<OrderModel> list = new List<OrderModel>();
             //list.Add(sitios);
+
+ //           using (var driver = GraphDatabase.Driver("bolt://localhost:7687", AuthTokens.Basic("neo4j", "basesavanzadas")))
+ //           using (var session = driver.Session())
+ //           {
+                
+ //               var result = session.Run("MATCH (a:Clients),(b:Places) WHERE a.idClient = '1' AND b.idPlace = '1' CREATE (a)-[:buysAt]->(b)");
+
+               // foreach (var record in result)
+               //     Console.WriteLine($"{record["title"].As<string>()} {record["name"].As<string>()}");
+ //           }
+
             return View(orders);
         }
 
@@ -72,11 +84,11 @@ namespace ProyectoProgramado3.Controllers
         {
             try
             {
-                orderCollection = _dbcontext.database.GetCollection<OrderModel>("Order");
+                orderCollection = _dbcontext.database.GetCollection<OrderModel>("Orders");
                 orderCollection.DeleteOne(Builders<OrderModel>.Filter.Eq("idOrder", id));
                 Create(collection);
                 var filter = Builders<OrderModel>.Filter.Eq("idOrder", id);
-                var update = Builders<OrderModel>.Update.Set("Order Number", collection.idOrder);//Se puede agregar mas haciendo un .Set("",) extra
+                var update = Builders<OrderModel>.Update.Set("idOrder", collection.idOrder);//Se puede agregar mas haciendo un .Set("",) extra
                 var result = orderCollection.UpdateOne(filter, update);
 
                 return RedirectToAction("Index");
@@ -102,6 +114,7 @@ namespace ProyectoProgramado3.Controllers
         {
             try
             {
+
                 orderCollection = _dbcontext.database.GetCollection<OrderModel>("Orders");
                 orderCollection.DeleteOne(Builders<OrderModel>.Filter.Eq("idOrder", id));
 

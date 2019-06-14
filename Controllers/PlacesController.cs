@@ -9,10 +9,11 @@ using MongoDB.Bson;
 using System.Collections.Generic;
 using MongoDB.Driver;
 using MongoDB.Bson.IO;
-
+using System.Web.Http.Cors;
 
 namespace ProyectoProgramado3.Controllers
 {
+   
     public class PlacesController : Controller
     {
         private MongoCon _dbcontext;
