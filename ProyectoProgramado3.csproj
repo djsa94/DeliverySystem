@@ -88,8 +88,11 @@
     <Reference Include="MongoDB.Driver.Core, Version=2.8.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\MongoDB.Driver.Core.2.8.1\lib\net452\MongoDB.Driver.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Neo4j.Driver, Version=1.7.226.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Neo4j.Driver.1.7.2\lib\net452\Neo4j.Driver.dll</HintPath>
+    <Reference Include="Neo4j.Driver, Version=1.7.91.0, Culture=neutral, PublicKeyToken=c08b0bc1c355082b, processorArchitecture=MSIL">
+      <HintPath>packages\Neo4j.Driver.Signed.1.7.0\lib\net452\Neo4j.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="Neo4jClient, Version=3.1.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Neo4jClient.3.1.0.6\lib\net46\Neo4jClient.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -183,6 +186,7 @@
     <Compile Include="App_Start\MongoCon.cs" />
     <Compile Include="App_Start\Neo4jCon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -193,6 +197,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ReportModel.cs" />
     <Compile Include="Models\ShoppingCartModel.cs" />
     <Compile Include="Models\ClientModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
@@ -276,6 +281,8 @@
     <Content Include="Views\PlaceProducts\Edit.cshtml" />
     <Content Include="Views\PlaceProducts\Index.cshtml" />
     <Content Include="Views\Places\loli.cshtml" />
+    <Content Include="Views\Places\SelectProduct.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

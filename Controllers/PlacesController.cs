@@ -19,6 +19,8 @@ namespace ProyectoProgramado3.Controllers
         private MongoCon _dbcontext;
         private IMongoCollection<PlaceModel> placesCollection;
 
+        string globalId;
+
         public PlacesController()
         {
             _dbcontext = new MongoCon();
@@ -113,6 +115,46 @@ namespace ProyectoProgramado3.Controllers
             {
                 return View();
             }
+        }
+
+        
+        public ActionResult SelectProduct(string id)
+        {
+            var productsCollection = _dbcontext.database.GetCollection<ProductModel>("Products");
+            List<ProductModel> productList = new List<ProductModel>();
+
+            var PlacesDetails = _dbcontext.database.GetCollection<PlaceModel>("Places");
+            var place = PlacesDetails.AsQueryable<PlaceModel>().SingleOrDefault(x => x.idPlace == id);
+            
+
+            foreach (var product in place.ProductList)
+            {
+                var foundProduct = productsCollection.AsQueryable<ProductModel>().SingleOrDefault(x => x.idProduct == product);
+                productList.Add(foundProduct);
+            }
+
+            Session["PlaceId"] = id;
+            return View(productList);
+        }
+        
+        public ActionResult RemoveProduct(string id)
+        {
+            string placeId = (string)Session["PlaceId"];
+
+            var PlacesDetails = _dbcontext.database.GetCollection<PlaceModel>("Places");
+            var place = PlacesDetails.AsQueryable<PlaceModel>().SingleOrDefault(x => x.idPlace == placeId);
+
+            List<string> productIdList = place.ProductList;
+
+            productIdList.Remove(id);
+
+            var filter = Builders<PlaceModel>.Filter.Eq("idPlace", placeId);
+            var update = Builders<PlaceModel>.Update.Set("ProductList", productIdList);
+            var result = PlacesDetails.UpdateOne(filter, update);
+
+            Session["PlaceId"] = "";
+           
+            return RedirectToAction("Index");
         }
     }
 }

@@ -53,8 +53,19 @@ namespace ProyectoProgramado3.Controllers
             {
                 ppCollection = _dbcontext.database.GetCollection<PlaceProductModel>("PlaceProducts");
                 ppCollection.InsertOne(collection);
+
+                var PlacesDetails = _dbcontext.database.GetCollection<PlaceModel>("Places");
+                var placesid = PlacesDetails.AsQueryable<PlaceModel>().SingleOrDefault(x => x.idPlace == collection.idPlace);
+
+                var currentProducts = placesid.ProductList;
+                currentProducts.Add(collection.idProduct);
+
+                var filter = Builders<PlaceModel>.Filter.Eq("idPlace", collection.idPlace);
+                var updatePlace = Builders<PlaceModel>.Update.Set("ProductList", currentProducts);
+                var finalUpdate = PlacesDetails.UpdateOne(filter, updatePlace);
+
                 Console.WriteLine("Insert");
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Places");
             }
             catch
             {

@@ -51,5 +51,8 @@ namespace ProyectoProgramado3.Models
 
         [BsonElement("Website")]
         public string Website { get; set; }
+
+        [BsonElement("ProductList")]
+        public List<string> ProductList { get; set; }
     }
 }

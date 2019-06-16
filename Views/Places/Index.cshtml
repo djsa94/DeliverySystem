@@ -95,9 +95,12 @@
             @Html.DisplayFor(modelItem => item.Website)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new {  id=item.idPlace  }) |
-            @Html.ActionLink("Details", "Details", new {  id=item.idPlace }) |
-            @Html.ActionLink("Delete", "Delete", new {  id=item.idPlace })
+            @Html.ActionLink("Edit", "Edit", new { id = item.idPlace }) |
+            @Html.ActionLink("Details", "Details", new { id = item.idPlace }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.idPlace }) |
+            @Html.ActionLink("Add a Product", "Create", "PlaceProducts") |
+            @Html.ActionLink("Remove a Product", "SelectProduct", new { id = item.idPlace })
+
         </td>
     </tr>
 }
