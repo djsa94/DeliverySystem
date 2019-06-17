@@ -19,7 +19,6 @@ namespace ProyectoProgramado3.Controllers
         private MongoCon _dbcontext;
         private IMongoCollection<PlaceModel> placesCollection;
 
-        string globalId;
 
         public PlacesController()
         {
@@ -140,6 +139,10 @@ namespace ProyectoProgramado3.Controllers
         public ActionResult RemoveProduct(string id)
         {
             string placeId = (string)Session["PlaceId"];
+
+         
+
+            
 
             var PlacesDetails = _dbcontext.database.GetCollection<PlaceModel>("Places");
             var place = PlacesDetails.AsQueryable<PlaceModel>().SingleOrDefault(x => x.idPlace == placeId);
